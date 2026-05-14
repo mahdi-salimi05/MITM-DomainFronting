@@ -6,7 +6,7 @@
   },
 
 
-  "remarks": "MITM-DomainFronting_v14",
+  "remarks": "MITM-DomainFronting_v16",
 
   "version": {
     "min": "26.2.6"
@@ -30,10 +30,10 @@
       "geosite:category-ads-all": "#3",
       "google-main-services.redirect": "www.google.com",
 	  "vercel-sites.redirect": "nextjs.org",
-	  "fastly.redirect": "pypi.org",
+	  "fastly.redirect": "www.python.org",
 	  "amazon-cloudfront.redirect": "kubernetes.io",
       "github-com.redirect": "github.com",
-      "github-com-2.redirect": "central.github.com",
+      "github-com-2.redirect": "collector.github.com",
       "github-alive.redirect": "alive.github.com",
       "pubmed.redirect": "pubmed.ncbi.nlm.nih.gov"
     },
@@ -259,7 +259,7 @@
       "streamSettings": {
         "security": "tls",
         "tlsSettings": {
-          "serverName": "pypi.org",
+          "serverName": "www.python.org",
           "verifyPeerCertByName": "fromMitM,www.python.org,pypi.org,fastly.com,www.fastly.com,developer.fastly.com,reddit.com,githubassets.com,github.com,github.io,githubusercontent.com",
           "alpn": ["fromMitM"],
           "fingerprint": "chrome"
@@ -334,8 +334,8 @@
       "streamSettings": {
         "security": "tls",
         "tlsSettings": {
-          "serverName": "central.github.com",
-          "verifyPeerCertByName": "fromMitM,central.github.com,github.com,www.github.com",
+          "serverName": "collector.github.com",
+          "verifyPeerCertByName": "fromMitM,collector.github.com,central.github.com,github.com,www.github.com",
           "alpn": ["fromMitM"],
           "fingerprint": "chrome"
         },
@@ -386,6 +386,28 @@
         "tlsSettings": {
           "serverName": "pubmed.ncbi.nlm.nih.gov",
           "verifyPeerCertByName": "fromMitM,pubmed.ncbi.nlm.nih.gov,cdn.ncbi.nlm.nih.gov,pmc.ncbi.nlm.nih.gov,www.st-va.ncbi.nlm.nih.gov,www.ncbi.nlm.nih.gov,ncbi.nlm.nih.gov",
+          "alpn": ["fromMitM"],
+          "fingerprint": "chrome"
+        },
+		"sockopt": {
+          "domainStrategy": "ForceIP",
+          "happyEyeballs": {
+            "tryDelayMs": 300,
+            "prioritizeIPv6": false,
+            "interleave": 2,
+            "maxConcurrentTry": 20
+          }
+        }
+      }
+    },
+    {
+      "tag": "tls-repack-github-null",
+      "protocol": "direct",
+      "streamSettings": {
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "140.82.121.4",
+          "verifyPeerCertByName": "fromMitM,140.82.121.4,alive.github.com,live.github.com,github.com,www.github.com,actions.githubusercontent.com,central.github.com,githubassets.com,github.io,githubusercontent.com",
           "alpn": ["fromMitM"],
           "fingerprint": "chrome"
         },
@@ -456,7 +478,7 @@
        "inboundTag": ["tls-decrypt-h211"]
 	  },
       {
-	   "outboundTag": "tls-repack-github-com",
+	   "outboundTag": "tls-repack-github-null",
        "domain": ["domain:gist.github.com"],
        "inboundTag": ["tls-decrypt-h211"]
 	  },
@@ -481,7 +503,7 @@
        "inboundTag": ["tls-decrypt-h211"]
 	  },
       {
-	   "outboundTag": "tls-repack-frommitm",
+	   "outboundTag": "tls-repack-github-null",
        "domain": ["geosite:github"],
        "ip": ["0.0.0.0/0", "::/0"],
        "inboundTag": ["tls-decrypt-h211"]
