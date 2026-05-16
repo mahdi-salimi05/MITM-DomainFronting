@@ -6,7 +6,7 @@
   },
 
 
-  "remarks": "MITM-DomainFronting_v16",
+  "remarks": "MITM-DomainFronting_v18",
 
   "version": {
     "min": "26.2.6"
@@ -30,9 +30,9 @@
       "geosite:category-ads-all": "#3",
       "google-main-services.redirect": "www.google.com",
 	  "vercel-sites.redirect": "nextjs.org",
-	  "fastly.redirect": "www.python.org",
+	  "fastly.redirect": "github.githubassets.com",
 	  "amazon-cloudfront.redirect": "kubernetes.io",
-      "github-com.redirect": "github.com",
+      "github-com.redirect": "www.github.com",
       "github-com-2.redirect": "collector.github.com",
       "github-alive.redirect": "alive.github.com",
       "pubmed.redirect": "pubmed.ncbi.nlm.nih.gov"
@@ -163,7 +163,7 @@
         "security": "tls",
         "tlsSettings": {
           "serverName": "fromMitM",
-          "verifyPeerCertByName": "fromMitM,github.com,www.github.com",
+          "verifyPeerCertByName": "fromMitM,github.com,www.github.com,api.github.com",
           "alpn": ["fromMitM"],
           "fingerprint": "chrome"
         },
@@ -259,8 +259,8 @@
       "streamSettings": {
         "security": "tls",
         "tlsSettings": {
-          "serverName": "www.python.org",
-          "verifyPeerCertByName": "fromMitM,www.python.org,pypi.org,fastly.com,www.fastly.com,developer.fastly.com,reddit.com,githubassets.com,github.com,github.io,githubusercontent.com",
+          "serverName": "github.githubassets.com",
+          "verifyPeerCertByName": "fromMitM,www.python.org,pypi.org,fastly.com,www.fastly.com,developer.fastly.com,reddit.com,githubassets.com,github.com,github.io,githubusercontent.com,github.githubassets.com",
           "alpn": ["fromMitM"],
           "fingerprint": "chrome"
         },
@@ -309,7 +309,7 @@
       "streamSettings": {
         "security": "tls",
         "tlsSettings": {
-          "serverName": "github.com",
+          "serverName": "www.github.com",
           "verifyPeerCertByName": "fromMitM,github.com,www.github.com",
           "alpn": ["fromMitM"],
           "fingerprint": "chrome"
@@ -478,13 +478,18 @@
        "inboundTag": ["tls-decrypt-h211"]
 	  },
       {
-	   "outboundTag": "tls-repack-github-null",
-       "domain": ["domain:gist.github.com"],
+	   "outboundTag": "tls-repack-frommitm",
+       "domain": ["domain:api.github.com"],
+       "inboundTag": ["tls-decrypt-h211"]
+	  },
+      {
+	   "outboundTag": "tls-repack-github-com",
+       "domain": ["domain:gist.github.com", "domain:www.github.com", "full:github.com"],
        "inboundTag": ["tls-decrypt-h211"]
 	  },
       {
 	   "outboundTag": "tls-repack-github-com-2",
-       "domain": ["domain:objects-origin.githubusercontent.com", "domain:api.individual.githubcopilot.com", "domain:glb-db52c2cf8be544.github.com", "domain:api.githubcopilot.com"],
+       "domain": ["domain:objects-origin.githubusercontent.com", "domain:api.individual.githubcopilot.com", "domain:glb-db52c2cf8be544.github.com", "domain:api.githubcopilot.com", "domain:collector.github.com", "domain:central.github.com"],
        "inboundTag": ["tls-decrypt-h211"]
 	  },
       {
